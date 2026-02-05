@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+@theme {
+  --color-palette-brown: #6a3e37;
+  --color-palette-slate: #2f4858;
+  --color-palette-sage: #94a89a;
+  --color-palette-beige: #c7ac92;
+  --color-palette-terracotta: #a44a3f;
+}

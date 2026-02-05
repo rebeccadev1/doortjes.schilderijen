@@ -1,0 +1,41 @@
+import { Link } from "react-router-dom";
+import type { Schilderij } from "../types/schilderij";
+import { Tag } from "./Tag";
+
+interface SchilderijDetailProps {
+  schilderij: Schilderij;
+}
+
+export function SchilderijDetail({ schilderij }: SchilderijDetailProps) {
+  return (
+    <article>
+      <Link
+        to="/schilderijen"
+        className="inline-flex items-center gap-2 text-palette-slate/70 hover:text-palette-slate text-sm mb-6"
+      >
+        ← Terug naar schilderijen
+      </Link>
+      <div className="max-w-3xl">
+        <div className="aspect-[4/3] rounded-lg overflow-hidden bg-palette-sage/30 mb-6">
+          <img
+            src={schilderij.afbeeldingUrl}
+            alt={schilderij.titel}
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <h1 className="text-2xl font-semibold text-palette-slate mb-2">
+          {schilderij.titel}
+        </h1>
+        <div className="flex flex-wrap gap-2 mb-4">
+          <Tag label={String(schilderij.jaartal)} variant="jaartal" />
+          {schilderij.thema.map((t) => (
+            <Tag key={t} label={t} variant="thema" />
+          ))}
+        </div>
+        <p className="text-palette-slate/90 leading-relaxed whitespace-pre-line">
+          {schilderij.beschrijving}
+        </p>
+      </div>
+    </article>
+  );
+}
