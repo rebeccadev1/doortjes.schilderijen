@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { schilderijen } from "../data/schilderijen";
 import { SchilderijKaart } from "../components/SchilderijKaart";
 import { Tag } from "../components/Tag";
@@ -7,6 +8,7 @@ import type { Schilderij } from "../types/schilderij";
 const ALLE = "alle";
 
 export function Overzichtspagina() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [jaartalFilter, setJaartalFilter] = useState<string>(ALLE);
   const [themaFilter, setThemaFilter] = useState<string>(ALLE);
   const [expandedSchilderij, setExpandedSchilderij] = useState<Schilderij | null>(null);
@@ -20,13 +22,72 @@ export function Overzichtspagina() {
     height: number;
   } | null>(null);
   const imageContainerRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const previousActiveElementRef = useRef<HTMLElement | null>(null);
+
+  const openId = searchParams.get("open");
+  const zoekParam = searchParams.get("zoek") ?? "";
+  useEffect(() => {
+    if (openId) {
+      const schilderij = schilderijen.find((s) => s.id === openId);
+      if (schilderij) setExpandedSchilderij(schilderij);
+      setSearchParams((prev) => {
+        const next = new URLSearchParams(prev);
+        next.delete("open");
+        return next;
+      }, { replace: true });
+    }
+  }, [openId, setSearchParams]);
 
   useEffect(() => {
     if (!expandedSchilderij) {
       setZoomMode(false);
       setMagnifier(null);
+      return;
+    }
+    previousActiveElementRef.current = document.activeElement as HTMLElement | null;
+    const frame = requestAnimationFrame(() => {
+      const focusables = modalRef.current?.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      const first = focusables?.[0];
+      first?.focus();
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [expandedSchilderij]);
+
+  useEffect(() => {
+    if (!expandedSchilderij && previousActiveElementRef.current) {
+      previousActiveElementRef.current.focus();
+      previousActiveElementRef.current = null;
     }
   }, [expandedSchilderij]);
+
+  function handleModalKeyDown(e: React.KeyboardEvent) {
+    if (e.key === "Escape") {
+      setExpandedSchilderij(null);
+      return;
+    }
+    if (e.key !== "Tab" || !modalRef.current) return;
+    const focusables = Array.from(
+      modalRef.current.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      )
+    );
+    if (focusables.length === 0) return;
+    const i = focusables.indexOf(document.activeElement as HTMLElement);
+    if (e.shiftKey) {
+      if (i <= 0) {
+        e.preventDefault();
+        focusables[focusables.length - 1].focus();
+      }
+    } else {
+      if (i === -1 || i >= focusables.length - 1) {
+        e.preventDefault();
+        focusables[0].focus();
+      }
+    }
+  }
 
   const jaartallen = useMemo(
     () =>
@@ -42,30 +103,56 @@ export function Overzichtspagina() {
   );
 
   const gefilterd = useMemo(() => {
+    const zoek = zoekParam.trim().toLowerCase();
     return schilderijen.filter((s) => {
       const matchJaartal =
         jaartalFilter === ALLE || String(s.jaartal) === jaartalFilter;
       const matchThema =
         themaFilter === ALLE || s.thema.includes(themaFilter);
-      return matchJaartal && matchThema;
+      const matchZoek =
+        !zoek ||
+        s.titel.toLowerCase().includes(zoek) ||
+        s.beschrijving.toLowerCase().includes(zoek) ||
+        s.thema.some((t) => t.toLowerCase().includes(zoek));
+      return matchJaartal && matchThema && matchZoek;
     });
-  }, [jaartalFilter, themaFilter]);
+  }, [jaartalFilter, themaFilter, zoekParam]);
 
   return (
-    <div>
-      <h1 className="text-2xl font-semibold text-palette-slate mb-6">
+    <div className="space-y-12">
+      <h1 className="font-title text-3xl font-semibold text-palette-slate">
         Schilderijen
       </h1>
-      <div className="flex flex-wrap gap-4 mb-6">
+      {zoekParam && (
+        <p className="text-palette-slate/80 text-sm">
+          {gefilterd.length === 0
+            ? "Geen schilderijen gevonden"
+            : `${gefilterd.length} schilderij${gefilterd.length === 1 ? "" : "en"} gevonden`}
+          {" "}
+          voor &quot;{zoekParam}&quot;{" "}
+          <button
+            type="button"
+            onClick={() => setSearchParams((prev) => {
+              const next = new URLSearchParams(prev);
+              next.delete("zoek");
+              return next;
+            })}
+            className="underline hover:no-underline text-palette-sage"
+          >
+            zoekopdracht wissen
+          </button>
+        </p>
+      )}
+      <div className="flex flex-wrap gap-4">
         <div className="flex items-center gap-2">
-          <label htmlFor="jaartal" className="text-sm text-palette-slate/80">
+          <label htmlFor="jaartal" className="text-sm font-medium text-palette-slate">
             Jaartal
           </label>
           <select
             id="jaartal"
             value={jaartalFilter}
             onChange={(e) => setJaartalFilter(e.target.value)}
-            className="rounded-md border border-palette-sage bg-palette-beige/50 px-3 py-2 text-sm text-palette-slate"
+            className="rounded-lg border border-palette-sage bg-palette-beige/50 px-3 py-2 text-sm text-palette-slate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-palette-sage focus-visible:ring-offset-2"
           >
             <option value={ALLE}>Alle jaren</option>
             {jaartallen.map((j) => (
@@ -76,14 +163,14 @@ export function Overzichtspagina() {
           </select>
         </div>
         <div className="flex items-center gap-2">
-          <label htmlFor="thema" className="text-sm text-palette-slate/80">
+          <label htmlFor="thema" className="text-sm font-medium text-palette-slate">
             Thema
           </label>
           <select
             id="thema"
             value={themaFilter}
             onChange={(e) => setThemaFilter(e.target.value)}
-            className="rounded-md border border-palette-sage bg-palette-beige/50 px-3 py-2 text-sm text-palette-slate"
+            className="rounded-lg border border-palette-sage bg-palette-beige/50 px-3 py-2 text-sm text-palette-slate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-palette-sage focus-visible:ring-offset-2"
           >
             <option value={ALLE}>Alle thema's</option>
             {themas.map((t) => (
@@ -109,10 +196,12 @@ export function Overzichtspagina() {
 
       {expandedSchilderij && (
         <div
+          ref={modalRef}
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
           aria-modal="true"
           role="dialog"
           aria-labelledby="expanded-card-title"
+          onKeyDown={handleModalKeyDown}
         >
           <button
             type="button"
@@ -121,13 +210,13 @@ export function Overzichtspagina() {
             aria-label="Sluiten"
           />
           <div
-            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-xl border border-palette-sage/60 bg-palette-beige shadow-2xl"
+            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-xl border border-palette-sage/60 bg-palette-beige shadow-2xl animate-modal-in"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               type="button"
               onClick={() => setExpandedSchilderij(null)}
-              className="absolute top-4 right-4 z-10 rounded-full bg-palette-slate/90 text-white p-2 hover:bg-palette-slate transition-colors"
+              className="absolute top-4 right-4 z-10 rounded-full bg-palette-slate/90 text-white p-2 hover:bg-palette-slate transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               aria-label="Sluiten"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -205,7 +294,7 @@ export function Overzichtspagina() {
                   aria-hidden
                 />
               )}
-              <h2 id="expanded-card-title" className="text-2xl font-semibold text-palette-slate mb-2">
+              <h2 id="expanded-card-title" className="font-title text-2xl font-semibold text-palette-slate mb-2">
                 {expandedSchilderij.titel}
               </h2>
               <div className="flex flex-wrap gap-2 mb-4">

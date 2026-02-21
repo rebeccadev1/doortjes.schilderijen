@@ -4,6 +4,34 @@
   --color-palette-brown: #6a3e37;
   --color-palette-slate: #2f4858;
   --color-palette-sage: #94a89a;
-  --color-palette-beige: #c7ac92;
+  --color-palette-beige: #d6cec0;
   --color-palette-terracotta: #a44a3f;
 }
+
+body {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.65;
+}
+
+h1,
+h2,
+.font-title {
+  font-family: "Times New Roman", Times, serif;
+}
+
+/* Modal open animation */
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-modal-in {
+  animation: modal-in 0.2s ease-out forwards;
+}
+

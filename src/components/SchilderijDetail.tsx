@@ -23,7 +23,7 @@ export function SchilderijDetail({ schilderij }: SchilderijDetailProps) {
             className="w-full h-full object-cover"
           />
         </div>
-        <h1 className="text-2xl font-semibold text-palette-slate mb-2">
+        <h1 className="font-title text-3xl font-semibold text-palette-slate mb-2">
           {schilderij.titel}
         </h1>
         <div className="flex flex-wrap gap-2 mb-4">
