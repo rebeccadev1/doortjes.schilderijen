@@ -1,9 +1,11 @@
+import { getPublicUrl } from "../utils/publicUrl";
+
 export function OverDoortjePagina() {
   return (
     <div className="flex flex-col sm:flex-row gap-12 items-start max-w-4xl mx-auto">
       <div className="flex-shrink-0 w-full sm:w-80 rounded-lg overflow-hidden aspect-square bg-palette-sage/30 shadow-sm">
         <img
-          src="/schilderijen/placeholder-over-doortje.svg"
+          src={getPublicUrl("/schilderijen/placeholder-over-doortje.svg")}
           alt="Over Doortje"
           className="w-full h-full object-cover"
         />

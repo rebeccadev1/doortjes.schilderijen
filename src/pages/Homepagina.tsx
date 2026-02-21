@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { schilderijen } from "../data/schilderijen";
 import { Tag } from "../components/Tag";
+import { getPublicUrl } from "../utils/publicUrl";
 
 const uitgelicht = schilderijen.slice(0, 3);
 const WISSEL_SECONDEN = 4;
@@ -99,7 +100,7 @@ className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full text-palette-sla
                       aria-hidden={i !== index}
                     >
                       <img
-                        src={s.afbeeldingUrl}
+                        src={getPublicUrl(s.afbeeldingUrl)}
                         alt={s.titel}
                         className="w-full h-full object-cover"
                       />

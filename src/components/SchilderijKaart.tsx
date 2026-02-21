@@ -1,5 +1,6 @@
 import type { Schilderij } from "../types/schilderij";
 import { Tag } from "./Tag";
+import { getPublicUrl } from "../utils/publicUrl";
 
 interface SchilderijKaartProps {
   schilderij: Schilderij;
@@ -20,7 +21,7 @@ export function SchilderijKaart({ schilderij, onSelect }: SchilderijKaartProps) 
     >
       <div className="aspect-[4/3] rounded-t-lg bg-palette-sage/30 overflow-hidden">
         <img
-          src={schilderij.afbeeldingUrl}
+          src={getPublicUrl(schilderij.afbeeldingUrl)}
           alt={schilderij.titel}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 rounded-t-lg"
         />

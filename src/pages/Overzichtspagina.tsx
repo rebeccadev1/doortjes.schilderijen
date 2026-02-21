@@ -4,6 +4,7 @@ import { schilderijen } from "../data/schilderijen";
 import { SchilderijKaart } from "../components/SchilderijKaart";
 import { Tag } from "../components/Tag";
 import type { Schilderij } from "../types/schilderij";
+import { getPublicUrl } from "../utils/publicUrl";
 
 const ALLE = "alle";
 
@@ -229,7 +230,7 @@ export function Overzichtspagina() {
                 className="relative max-h-[28rem] aspect-[4/3] w-full max-w-xl mx-auto rounded-lg overflow-hidden bg-palette-sage/30 mb-6"
               >
                 <img
-                  src={expandedSchilderij.afbeeldingUrl}
+                  src={getPublicUrl(expandedSchilderij.afbeeldingUrl)}
                   alt={expandedSchilderij.titel}
                   className="w-full h-full object-cover select-none pointer-events-none"
                   draggable={false}
@@ -286,7 +287,7 @@ export function Overzichtspagina() {
                     height: "280px",
                     left: `${magnifier.clientX - 140}px`,
                     top: `${magnifier.clientY - 140}px`,
-                    backgroundImage: `url(${expandedSchilderij.afbeeldingUrl})`,
+                    backgroundImage: `url(${getPublicUrl(expandedSchilderij.afbeeldingUrl)})`,
                     backgroundRepeat: "no-repeat",
                     backgroundSize: `${magnifier.width * 2.5}px ${magnifier.height * 2.5}px`,
                     backgroundPosition: `${140 - magnifier.localX * 2.5}px ${140 - magnifier.localY * 2.5}px`,

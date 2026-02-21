@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import type { Schilderij } from "../types/schilderij";
 import { Tag } from "./Tag";
+import { getPublicUrl } from "../utils/publicUrl";
 
 interface SchilderijDetailProps {
   schilderij: Schilderij;
@@ -18,7 +19,7 @@ export function SchilderijDetail({ schilderij }: SchilderijDetailProps) {
       <div className="max-w-3xl">
         <div className="aspect-[4/3] rounded-lg overflow-hidden bg-palette-sage/30 mb-6">
           <img
-            src={schilderij.afbeeldingUrl}
+            src={getPublicUrl(schilderij.afbeeldingUrl)}
             alt={schilderij.titel}
             className="w-full h-full object-cover"
           />
