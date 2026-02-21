@@ -7,7 +7,7 @@ import { Detailpagina } from "./pages/Detailpagina";
 
 function App() {
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+    <BrowserRouter basename={import.meta.env.PROD ? "/doortjes.schilderijen" : ""}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Homepagina />} />

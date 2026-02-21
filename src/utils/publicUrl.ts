@@ -1,9 +1,9 @@
 /**
  * Geeft het volledige URL-pad voor een bestand in public/.
- * Nodig voor GitHub Pages waar de site onder een subpath staat (bijv. /doortjes.schilderijen/).
+ * In productie staat de site op /doortjes.schilderijen/, lokaal op /.
  */
 export function getPublicUrl(path: string): string {
-  const base = import.meta.env.BASE_URL;
+  const base = import.meta.env.PROD ? "/doortjes.schilderijen" : "";
   const normalized = path.startsWith("/") ? path.slice(1) : path;
-  return base + normalized;
+  return base ? `${base}/${normalized}` : `/${normalized}`;
 }
