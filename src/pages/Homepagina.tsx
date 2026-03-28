@@ -116,10 +116,11 @@ className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full text-palette-sla
                   {huidige.beschrijving}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <Tag label={String(huidige.jaartal)} variant="jaartal" />
                   {huidige.thema.map((t) => (
                     <Tag key={t} label={t} variant="thema" />
                   ))}
+                  <Tag label={huidige.afmeting} variant="meta" />
+                  <Tag label={huidige.materiaal} variant="meta" />
                 </div>
               </div>
             </div>

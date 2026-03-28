@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { schilderijen } from "../data/schilderijen";
+import { MATERIALEN } from "../data/materialen";
+import { THEMAS } from "../data/themas";
 import { SchilderijKaart } from "../components/SchilderijKaart";
 import { Tag } from "../components/Tag";
 import type { Schilderij } from "../types/schilderij";
@@ -10,8 +12,9 @@ const ALLE = "alle";
 
 export function Overzichtspagina() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [jaartalFilter, setJaartalFilter] = useState<string>(ALLE);
   const [themaFilter, setThemaFilter] = useState<string>(ALLE);
+  const [afmetingFilter, setAfmetingFilter] = useState<string>(ALLE);
+  const [materiaalFilter, setMateriaalFilter] = useState<string>(ALLE);
   const [expandedSchilderij, setExpandedSchilderij] = useState<Schilderij | null>(null);
   const [zoomMode, setZoomMode] = useState(false);
   const [magnifier, setMagnifier] = useState<{
@@ -90,34 +93,33 @@ export function Overzichtspagina() {
     }
   }
 
-  const jaartallen = useMemo(
+  const afmetingen = useMemo(
     () =>
-      Array.from(new Set(schilderijen.map((s) => s.jaartal))).sort(
-        (a, b) => b - a
+      Array.from(new Set(schilderijen.map((s) => s.afmeting))).sort((a, b) =>
+        a.localeCompare(b, "nl", { numeric: true })
       ),
-    []
-  );
-  const themas = useMemo(
-    () =>
-      Array.from(new Set(schilderijen.flatMap((s) => s.thema))).sort(),
     []
   );
 
   const gefilterd = useMemo(() => {
     const zoek = zoekParam.trim().toLowerCase();
     return schilderijen.filter((s) => {
-      const matchJaartal =
-        jaartalFilter === ALLE || String(s.jaartal) === jaartalFilter;
       const matchThema =
         themaFilter === ALLE || s.thema.includes(themaFilter);
+      const matchAfmeting =
+        afmetingFilter === ALLE || s.afmeting === afmetingFilter;
+      const matchMateriaal =
+        materiaalFilter === ALLE || s.materiaal === materiaalFilter;
       const matchZoek =
         !zoek ||
         s.titel.toLowerCase().includes(zoek) ||
         s.beschrijving.toLowerCase().includes(zoek) ||
+        s.afmeting.toLowerCase().includes(zoek) ||
+        s.materiaal.toLowerCase().includes(zoek) ||
         s.thema.some((t) => t.toLowerCase().includes(zoek));
-      return matchJaartal && matchThema && matchZoek;
+      return matchThema && matchAfmeting && matchMateriaal && matchZoek;
     });
-  }, [jaartalFilter, themaFilter, zoekParam]);
+  }, [afmetingFilter, materiaalFilter, themaFilter, zoekParam]);
 
   return (
     <div className="space-y-12">
@@ -146,24 +148,6 @@ export function Overzichtspagina() {
       )}
       <div className="flex flex-wrap gap-4">
         <div className="flex items-center gap-2">
-          <label htmlFor="jaartal" className="text-sm font-medium text-palette-slate">
-            Jaartal
-          </label>
-          <select
-            id="jaartal"
-            value={jaartalFilter}
-            onChange={(e) => setJaartalFilter(e.target.value)}
-            className="rounded-lg border border-palette-sage bg-palette-beige/50 px-3 py-2 text-sm text-palette-slate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-palette-sage focus-visible:ring-offset-2"
-          >
-            <option value={ALLE}>Alle jaren</option>
-            {jaartallen.map((j) => (
-              <option key={j} value={String(j)}>
-                {j}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="flex items-center gap-2">
           <label htmlFor="thema" className="text-sm font-medium text-palette-slate">
             Thema
           </label>
@@ -173,10 +157,46 @@ export function Overzichtspagina() {
             onChange={(e) => setThemaFilter(e.target.value)}
             className="rounded-lg border border-palette-sage bg-palette-beige/50 px-3 py-2 text-sm text-palette-slate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-palette-sage focus-visible:ring-offset-2"
           >
-            <option value={ALLE}>Alle thema's</option>
-            {themas.map((t) => (
+            <option value={ALLE}>Alle thema&apos;s</option>
+            {THEMAS.map((t) => (
               <option key={t} value={t}>
                 {t}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="flex items-center gap-2">
+          <label htmlFor="afmeting" className="text-sm font-medium text-palette-slate">
+            Afmeting
+          </label>
+          <select
+            id="afmeting"
+            value={afmetingFilter}
+            onChange={(e) => setAfmetingFilter(e.target.value)}
+            className="rounded-lg border border-palette-sage bg-palette-beige/50 px-3 py-2 text-sm text-palette-slate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-palette-sage focus-visible:ring-offset-2"
+          >
+            <option value={ALLE}>Alle afmetingen</option>
+            {afmetingen.map((a) => (
+              <option key={a} value={a}>
+                {a}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="flex items-center gap-2">
+          <label htmlFor="materiaal" className="text-sm font-medium text-palette-slate">
+            Materiaal
+          </label>
+          <select
+            id="materiaal"
+            value={materiaalFilter}
+            onChange={(e) => setMateriaalFilter(e.target.value)}
+            className="rounded-lg border border-palette-sage bg-palette-beige/50 px-3 py-2 text-sm text-palette-slate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-palette-sage focus-visible:ring-offset-2"
+          >
+            <option value={ALLE}>Alle materialen</option>
+            {MATERIALEN.map((m) => (
+              <option key={m} value={m}>
+                {m}
               </option>
             ))}
           </select>
@@ -299,10 +319,11 @@ export function Overzichtspagina() {
                 {expandedSchilderij.titel}
               </h2>
               <div className="flex flex-wrap gap-2 mb-4">
-                <Tag label={String(expandedSchilderij.jaartal)} variant="jaartal" />
                 {expandedSchilderij.thema.map((t) => (
                   <Tag key={t} label={t} variant="thema" />
                 ))}
+                <Tag label={expandedSchilderij.afmeting} variant="meta" />
+                <Tag label={expandedSchilderij.materiaal} variant="meta" />
               </div>
               <p className="text-palette-slate/90 leading-relaxed whitespace-pre-line">
                 {expandedSchilderij.beschrijving}

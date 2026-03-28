@@ -1,8 +1,12 @@
+import type { Materiaal } from "../data/materialen";
+
 export interface Schilderij {
   id: string;
   titel: string;
   beschrijving: string;
-  jaartal: number;
+  /** Bijv. "30 × 40 cm" of "Onbekend" */
+  afmeting: string;
+  materiaal: Materiaal;
   thema: string[];
   afbeeldingUrl: string;
 }

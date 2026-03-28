@@ -28,10 +28,11 @@ export function SchilderijDetail({ schilderij }: SchilderijDetailProps) {
           {schilderij.titel}
         </h1>
         <div className="flex flex-wrap gap-2 mb-4">
-          <Tag label={String(schilderij.jaartal)} variant="jaartal" />
           {schilderij.thema.map((t) => (
             <Tag key={t} label={t} variant="thema" />
           ))}
+          <Tag label={schilderij.afmeting} variant="meta" />
+          <Tag label={schilderij.materiaal} variant="meta" />
         </div>
         <p className="text-palette-slate/90 leading-relaxed whitespace-pre-line">
           {schilderij.beschrijving}

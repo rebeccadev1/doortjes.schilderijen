@@ -34,10 +34,11 @@ export function SchilderijKaart({ schilderij, onSelect }: SchilderijKaartProps) 
           {korteBeschrijving(schilderij.beschrijving)}
         </p>
         <div className="flex flex-wrap gap-2 mt-3">
-          <Tag label={String(schilderij.jaartal)} variant="jaartal" />
           {schilderij.thema.slice(0, 2).map((t) => (
             <Tag key={t} label={t} variant="thema" />
           ))}
+          <Tag label={schilderij.afmeting} variant="meta" />
+          <Tag label={schilderij.materiaal} variant="meta" />
         </div>
       </div>
     </button>
