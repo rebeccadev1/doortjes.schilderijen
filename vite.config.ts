@@ -4,7 +4,8 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // Relatief in productie zodat assets altijd laden op GitHub Pages
-  base: process.env.NODE_ENV === "production" ? "./" : "/",
+  // Rootpad: custom domain (doortjes-schilderijen.nl) en GitHub Pages dienen dezelfde build.
+  // Voor alleen username.github.io/REPO zonder custom domain: zet base op '/REPO/'.
+  base: "/",
   plugins: [react(), tailwindcss()],
 })

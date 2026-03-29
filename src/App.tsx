@@ -6,8 +6,11 @@ import { OverDoortjePagina } from "./pages/OverDoortjePagina";
 import { Detailpagina } from "./pages/Detailpagina";
 
 function App() {
+  const routerBasename =
+    import.meta.env.BASE_URL.replace(/\/$/, "") || undefined;
+
   return (
-    <BrowserRouter basename={import.meta.env.PROD ? "/doortjes.schilderijen" : ""}>
+    <BrowserRouter basename={routerBasename}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Homepagina />} />
