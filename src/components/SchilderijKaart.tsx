@@ -19,11 +19,11 @@ export function SchilderijKaart({ schilderij, onSelect }: SchilderijKaartProps) 
       onClick={() => onSelect?.(schilderij)}
       className="group block w-full text-left bg-palette-beige/50 rounded-lg border border-palette-sage/40 overflow-hidden shadow-sm hover:shadow-md hover:border-palette-sage transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-palette-sage"
     >
-      <div className="relative aspect-[4/3] rounded-t-lg bg-palette-sage/30 overflow-hidden">
+      <div className="aspect-[4/3] rounded-t-lg bg-palette-sage/30 overflow-hidden">
         <img
           src={getPublicUrl(schilderij.afbeeldingUrl)}
           alt={schilderij.titel}
-          className="absolute inset-0 block size-full object-cover object-center rounded-t-lg transition-transform duration-300 group-hover:scale-105"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 rounded-t-lg"
         />
       </div>
       <div className="p-4">
