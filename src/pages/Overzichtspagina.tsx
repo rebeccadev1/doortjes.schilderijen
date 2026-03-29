@@ -123,7 +123,7 @@ export function Overzichtspagina() {
 
   return (
     <div className="space-y-12">
-      <h1 className="font-title text-6xl font-semibold text-palette-slate">
+      <h1 className="font-title text-4xl font-semibold text-palette-slate">
         Schilderijen
       </h1>
       {zoekParam && (
