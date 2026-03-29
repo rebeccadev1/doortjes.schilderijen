@@ -21,7 +21,7 @@ export function SchilderijDetail({ schilderij }: SchilderijDetailProps) {
           <img
             src={getPublicUrl(schilderij.afbeeldingUrl)}
             alt={schilderij.titel}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-top"
           />
         </div>
         <h1 className="font-title text-3xl font-semibold text-palette-slate mb-2">

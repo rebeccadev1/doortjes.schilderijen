@@ -252,7 +252,7 @@ export function Overzichtspagina() {
                 <img
                   src={getPublicUrl(expandedSchilderij.afbeeldingUrl)}
                   alt={expandedSchilderij.titel}
-                  className="w-full h-full object-cover select-none pointer-events-none"
+                  className="w-full h-full object-cover object-top select-none pointer-events-none"
                   draggable={false}
                 />
                 <button

@@ -23,7 +23,7 @@ export function SchilderijKaart({ schilderij, onSelect }: SchilderijKaartProps) 
         <img
           src={getPublicUrl(schilderij.afbeeldingUrl)}
           alt={schilderij.titel}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 rounded-t-lg"
+          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300 rounded-t-lg"
         />
       </div>
       <div className="p-4">
