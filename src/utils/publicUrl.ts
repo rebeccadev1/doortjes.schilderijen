@@ -1,9 +1,9 @@
 /**
  * Geeft het volledige URL-pad voor een bestand in public/.
- * In productie staat de site op /doortjes.schilderijen/, lokaal op /.
+ * Volgt Vite `base` (custom domain = `/`, anders bijv. `/repo/`).
  */
 export function getPublicUrl(path: string): string {
-  const base = import.meta.env.PROD ? "/doortjes.schilderijen" : "";
+  const base = import.meta.env.BASE_URL.replace(/\/$/, "") || "";
   const normalized = path.startsWith("/") ? path.slice(1) : path;
   return base ? `${base}/${normalized}` : `/${normalized}`;
 }
