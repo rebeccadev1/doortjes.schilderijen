@@ -1,16 +1,17 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { Homepagina } from "./pages/Homepagina";
 import { Overzichtspagina } from "./pages/Overzichtspagina";
 import { OverDoortjePagina } from "./pages/OverDoortjePagina";
 import { Detailpagina } from "./pages/Detailpagina";
 
+/**
+ * HashRouter: het pad staat in de URL-hash (/#/schilderijen), niet in het serverpad.
+ * Daardoor werkt vernieuwen op elke pagina op statische hosts (GitHub Pages) zonder 404.html-trucs.
+ */
 function App() {
-  const routerBasename =
-    import.meta.env.BASE_URL.replace(/\/$/, "") || undefined;
-
   return (
-    <BrowserRouter basename={routerBasename}>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Homepagina />} />
@@ -19,7 +20,7 @@ function App() {
           <Route path="schilderij/:id" element={<Detailpagina />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
