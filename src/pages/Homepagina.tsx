@@ -102,7 +102,7 @@ className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full text-palette-sla
                       <img
                         src={getPublicUrl(s.afbeeldingUrl)}
                         alt={s.titel}
-                        className="w-full h-full object-cover object-top"
+                        className="absolute inset-0 h-full w-full object-cover object-top"
                       />
                     </Link>
                   ))}

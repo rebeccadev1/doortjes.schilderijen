@@ -17,13 +17,13 @@ export function SchilderijKaart({ schilderij, onSelect }: SchilderijKaartProps) 
     <button
       type="button"
       onClick={() => onSelect?.(schilderij)}
-      className="group block w-full text-left bg-palette-beige/50 rounded-lg border border-palette-sage/40 overflow-hidden shadow-sm hover:shadow-md hover:border-palette-sage transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-palette-sage"
+      className="group flex w-full flex-col p-0 text-left bg-palette-beige/50 rounded-lg border border-palette-sage/40 overflow-hidden shadow-sm hover:shadow-md hover:border-palette-sage transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-palette-sage"
     >
-      <div className="aspect-[4/3] rounded-t-lg bg-palette-sage/30 overflow-hidden">
+      <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden rounded-t-lg bg-palette-sage/30">
         <img
           src={getPublicUrl(schilderij.afbeeldingUrl)}
           alt={schilderij.titel}
-          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300 rounded-t-lg"
+          className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-105 rounded-t-lg"
         />
       </div>
       <div className="p-4">

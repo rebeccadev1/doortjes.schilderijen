@@ -247,12 +247,12 @@ export function Overzichtspagina() {
             <div className="p-6 md:p-8">
               <div
                 ref={imageContainerRef}
-                className="relative max-h-[28rem] aspect-[4/3] w-full max-w-xl mx-auto rounded-lg overflow-hidden bg-palette-sage/30 mb-6"
+                className="relative max-h-[28rem] aspect-[4/3] w-full max-w-xl mx-auto overflow-hidden rounded-lg bg-palette-sage/30 mb-6"
               >
                 <img
                   src={getPublicUrl(expandedSchilderij.afbeeldingUrl)}
                   alt={expandedSchilderij.titel}
-                  className="w-full h-full object-cover object-top select-none pointer-events-none"
+                  className="absolute inset-0 h-full w-full object-cover object-top select-none pointer-events-none"
                   draggable={false}
                 />
                 <button

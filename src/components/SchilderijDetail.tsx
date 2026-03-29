@@ -17,11 +17,11 @@ export function SchilderijDetail({ schilderij }: SchilderijDetailProps) {
         ← Terug naar schilderijen
       </Link>
       <div className="max-w-3xl">
-        <div className="aspect-[4/3] rounded-lg overflow-hidden bg-palette-sage/30 mb-6">
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg bg-palette-sage/30 mb-6">
           <img
             src={getPublicUrl(schilderij.afbeeldingUrl)}
             alt={schilderij.titel}
-            className="w-full h-full object-cover object-top"
+            className="absolute inset-0 h-full w-full object-cover object-top"
           />
         </div>
         <h1 className="font-title text-3xl font-semibold text-palette-slate mb-2">
