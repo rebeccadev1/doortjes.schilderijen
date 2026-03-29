@@ -30,9 +30,7 @@ jobs:
         run: |
           npm ci
           npm run build
-
-      - name: SPA 404 fallback for client-side routing
-        run: cp dist/index.html dist/404.html
+          test -f dist/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
