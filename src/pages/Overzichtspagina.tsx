@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useSearchParams } from "react-router-dom";
 import { schilderijen } from "../data/schilderijen";
 import { MATERIALEN } from "../data/materialen";
@@ -66,6 +67,34 @@ export function Overzichtspagina() {
       previousActiveElementRef.current = null;
     }
   }, [expandedSchilderij]);
+
+  useLayoutEffect(() => {
+    if (!zoomMode || !imageContainerRef.current) return;
+    const rect = imageContainerRef.current.getBoundingClientRect();
+    setMagnifier({
+      clientX: rect.left + rect.width / 2,
+      clientY: rect.top + rect.height / 2,
+      localX: rect.width / 2,
+      localY: rect.height / 2,
+      width: rect.width,
+      height: rect.height,
+    });
+  }, [zoomMode, expandedSchilderij?.id]);
+
+  function updateMagnifierFromPointer(clientX: number, clientY: number) {
+    if (!imageContainerRef.current) return;
+    const rect = imageContainerRef.current.getBoundingClientRect();
+    const localX = Math.min(Math.max(0, clientX - rect.left), rect.width);
+    const localY = Math.min(Math.max(0, clientY - rect.top), rect.height);
+    setMagnifier({
+      clientX,
+      clientY,
+      localX,
+      localY,
+      width: rect.width,
+      height: rect.height,
+    });
+  }
 
   function handleModalKeyDown(e: React.KeyboardEvent) {
     if (e.key === "Escape") {
@@ -155,7 +184,7 @@ export function Overzichtspagina() {
             id="thema"
             value={themaFilter}
             onChange={(e) => setThemaFilter(e.target.value)}
-            className="rounded-lg border border-palette-sage bg-palette-beige/50 px-3 py-2 text-sm text-palette-slate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-palette-sage focus-visible:ring-offset-2"
+            className="rounded-lg border border-palette-sage bg-palette-beige/40 px-3 py-2 text-sm text-palette-slate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-palette-sage focus-visible:ring-offset-2"
           >
             <option value={ALLE}>Alle thema&apos;s</option>
             {THEMAS.map((t) => (
@@ -173,7 +202,7 @@ export function Overzichtspagina() {
             id="afmeting"
             value={afmetingFilter}
             onChange={(e) => setAfmetingFilter(e.target.value)}
-            className="rounded-lg border border-palette-sage bg-palette-beige/50 px-3 py-2 text-sm text-palette-slate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-palette-sage focus-visible:ring-offset-2"
+            className="rounded-lg border border-palette-sage bg-palette-beige/40 px-3 py-2 text-sm text-palette-slate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-palette-sage focus-visible:ring-offset-2"
           >
             <option value={ALLE}>Alle afmetingen</option>
             {afmetingen.map((a) => (
@@ -191,7 +220,7 @@ export function Overzichtspagina() {
             id="materiaal"
             value={materiaalFilter}
             onChange={(e) => setMateriaalFilter(e.target.value)}
-            className="rounded-lg border border-palette-sage bg-palette-beige/50 px-3 py-2 text-sm text-palette-slate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-palette-sage focus-visible:ring-offset-2"
+            className="rounded-lg border border-palette-sage bg-palette-beige/40 px-3 py-2 text-sm text-palette-slate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-palette-sage focus-visible:ring-offset-2"
           >
             <option value={ALLE}>Alle materialen</option>
             {MATERIALEN.map((m) => (
@@ -247,14 +276,16 @@ export function Overzichtspagina() {
             <div className="p-6 md:p-8">
               <div
                 ref={imageContainerRef}
-                className="relative max-h-[28rem] aspect-[4/3] w-full max-w-xl mx-auto overflow-hidden rounded-lg bg-palette-sage/30 mb-6"
+                className="relative max-h-[28rem] aspect-[4/3] w-full max-w-xl mx-auto overflow-hidden rounded-lg bg-transparent mb-6"
               >
-                <img
-                  src={getPublicUrl(expandedSchilderij.afbeeldingUrl)}
-                  alt={expandedSchilderij.titel}
-                  className="absolute inset-0 h-full w-full object-cover object-top select-none pointer-events-none"
-                  draggable={false}
-                />
+                <div className="pointer-events-none absolute inset-1.5 flex min-h-0 min-w-0 items-center justify-center">
+                  <img
+                    src={getPublicUrl(expandedSchilderij.afbeeldingUrl)}
+                    alt={expandedSchilderij.titel}
+                    className="max-h-full max-w-full h-auto w-auto rounded-md object-contain select-none pointer-events-none"
+                    draggable={false}
+                  />
+                </div>
                 <button
                   type="button"
                   onClick={(e) => {
@@ -264,7 +295,7 @@ export function Overzichtspagina() {
                       return !z;
                     });
                   }}
-                  className={`absolute bottom-2 right-2 z-10 rounded-full p-2 shadow-md transition-colors ${
+                  className={`absolute bottom-2 right-2 z-30 rounded-full p-2 shadow-md transition-colors ${
                     zoomMode
                       ? "bg-palette-slate text-white"
                       : "bg-white/90 text-palette-slate hover:bg-white"
@@ -278,43 +309,19 @@ export function Overzichtspagina() {
                 </button>
                 {zoomMode && (
                   <div
-                    className="absolute inset-0 cursor-crosshair z-[5]"
-                    onMouseMove={(e) => {
-                      if (!imageContainerRef.current) return;
-                      const rect = imageContainerRef.current.getBoundingClientRect();
-                      const localX = e.clientX - rect.left;
-                      const localY = e.clientY - rect.top;
-                      setMagnifier({
-                        clientX: e.clientX,
-                        clientY: e.clientY,
-                        localX,
-                        localY,
-                        width: rect.width,
-                        height: rect.height,
-                      });
+                    className="absolute inset-0 z-20 cursor-crosshair touch-none"
+                    onPointerDown={(e) => {
+                      if (e.pointerType === "mouse" && e.button !== 0) return;
+                      e.currentTarget.setPointerCapture(e.pointerId);
+                      updateMagnifierFromPointer(e.clientX, e.clientY);
                     }}
-                    onMouseLeave={() => setMagnifier(null)}
+                    onPointerMove={(e) => {
+                      updateMagnifierFromPointer(e.clientX, e.clientY);
+                    }}
                     aria-hidden
                   />
                 )}
               </div>
-              {zoomMode && magnifier && (
-                <div
-                  className="fixed pointer-events-none rounded-full border-2 border-white shadow-xl overflow-hidden"
-                  style={{
-                    zIndex: 9999,
-                    width: "280px",
-                    height: "280px",
-                    left: `${magnifier.clientX - 140}px`,
-                    top: `${magnifier.clientY - 140}px`,
-                    backgroundImage: `url(${getPublicUrl(expandedSchilderij.afbeeldingUrl)})`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: `${magnifier.width * 2.5}px ${magnifier.height * 2.5}px`,
-                    backgroundPosition: `${140 - magnifier.localX * 2.5}px ${140 - magnifier.localY * 2.5}px`,
-                  }}
-                  aria-hidden
-                />
-              )}
               <h2 id="expanded-card-title" className="font-title text-2xl font-semibold text-palette-slate mb-2">
                 {expandedSchilderij.titel}
               </h2>
@@ -330,6 +337,25 @@ export function Overzichtspagina() {
               </p>
             </div>
           </div>
+          {zoomMode &&
+            magnifier &&
+            createPortal(
+              <div
+                className="pointer-events-none fixed z-[10000] rounded-full border-2 border-white shadow-xl overflow-hidden"
+                style={{
+                  width: "280px",
+                  height: "280px",
+                  left: `${magnifier.clientX - 140}px`,
+                  top: `${magnifier.clientY - 140}px`,
+                  backgroundImage: `url("${getPublicUrl(expandedSchilderij.afbeeldingUrl)}")`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: `${magnifier.width * 2.5}px ${magnifier.height * 2.5}px`,
+                  backgroundPosition: `${140 - magnifier.localX * 2.5}px ${140 - magnifier.localY * 2.5}px`,
+                }}
+                aria-hidden
+              />,
+              document.body
+            )}
         </div>
       )}
     </div>

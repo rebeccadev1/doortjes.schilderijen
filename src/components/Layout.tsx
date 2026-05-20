@@ -18,10 +18,10 @@ export function Layout() {
 
   return (
     <div
-      className={`min-h-screen text-palette-slate ${isDetailPagina ? "bg-palette-beige" : "bg-palette-sage/20"}`}
+      className={`min-h-screen text-palette-slate ${isDetailPagina ? "bg-palette-beige/40" : "bg-palette-sage/20"}`}
     >
       <header
-        className={`border-b border-palette-sage/50 bg-palette-beige/90 backdrop-blur-sm sticky top-0 z-10 transition-shadow duration-200 ${scrolled ? "shadow-md" : ""}`}
+        className={`border-b border-palette-sage/50 bg-palette-beige/40 backdrop-blur-sm sticky top-0 z-10 transition-shadow duration-200 ${scrolled ? "shadow-md" : ""}`}
       >
         <div className="max-w-6xl mx-auto px-4 py-3 sm:py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <Link

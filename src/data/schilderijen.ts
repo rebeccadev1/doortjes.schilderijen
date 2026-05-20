@@ -89,7 +89,7 @@ export const schilderijen: Schilderij[] = [
     afmeting: "100 × 80 cm",
     materiaal: "Acryl op doek",
     thema: ["Landschappen"],
-    afbeeldingUrl: "/schilderijen/\u2018de Beek\u2019.jpg",
+    afbeeldingUrl: "/schilderijen/de Beek.jpg",
   },
   {
     id: "10",
@@ -153,7 +153,7 @@ export const schilderijen: Schilderij[] = [
   },
   {
     id: "16",
-    titel: "Herfst in \u2018De Beek\u2019",
+    titel: "Herfst in 'De Beek'",
     beschrijving:
       "Herfstkleuren aan het water: weerspiegeling, boomstammen en gouden blad in rustige sfeer.",
     afmeting: "40 × 50 cm",
@@ -420,5 +420,35 @@ export const schilderijen: Schilderij[] = [
     materiaal: "Acryl op doek",
     thema: ["Bloemen"],
     afbeeldingUrl: "/schilderijen/pot-en-zonnebloem.png",
+  },
+  {
+    id: "43",
+    titel: "Deurtje",
+    beschrijving:
+      "Een houten deurtje en kozijn: warm roodbruin, licht en een beetje schaduw; intiem stads- of huisdetail.",
+    afmeting: "40 × 50 cm",
+    materiaal: "Acryl op doek",
+    thema: ["Huis"],
+    afbeeldingUrl: "/schilderijen/Deurtje.jpeg",
+  },
+  {
+    id: "44",
+    titel: "Regenlaarzen",
+    beschrijving:
+      "Een paar regenlaarzen naast elkaar: glimmend rubber, donkere groenblauwe tinten en eenvoudige vorm.",
+    afmeting: "50 × 40 cm",
+    materiaal: "Acryl op doek",
+    thema: ["Van Alles Wat"],
+    afbeeldingUrl: "/schilderijen/Regenlaarzen.jpeg",
+  },
+  {
+    id: "45",
+    titel: "Waterbloemen",
+    beschrijving:
+      "Waterplanten en bloemen op het oppervlak: ronde bladeren, kleuraccenten en rust in het water.",
+    afmeting: "60 × 80 cm",
+    materiaal: "Acryl op doek",
+    thema: ["Bloemen"],
+    afbeeldingUrl: "/schilderijen/Waterbloemen.jpeg",
   },
 ];

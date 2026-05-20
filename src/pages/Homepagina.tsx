@@ -56,7 +56,7 @@ export function Homepagina() {
               value={zoekTerm}
               onChange={(e) => setZoekTerm(e.target.value)}
               placeholder="Zoek op titel, beschijving of thema..."
-              className="flex-1 rounded-lg border-2 border-palette-sage bg-palette-beige/50 px-4 py-2.5 text-palette-slate placeholder:text-palette-slate/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-palette-sage focus-visible:ring-offset-2"
+              className="flex-1 rounded-lg border-2 border-palette-sage bg-palette-beige/40 px-4 py-2.5 text-palette-slate placeholder:text-palette-slate/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-palette-sage focus-visible:ring-offset-2"
               aria-label="Zoek een schilderij"
             />
             <button
@@ -89,23 +89,25 @@ className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full text-palette-sla
               <div className="flex-1 min-w-0">
                 <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex-shrink-0 w-full sm:w-[45%] min-h-[200px]">
-                <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-palette-sage/30">
-                  {uitgelicht.map((s, i) => (
-                    <Link
-                      key={s.id}
-                      to={`/schilderijen?open=${s.id}`}
-                      className={`absolute inset-0 block transition-opacity duration-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-palette-sage ${
-                        i === index ? "opacity-100 z-10" : "opacity-0 pointer-events-none"
-                      }`}
-                      aria-hidden={i !== index}
-                    >
-                      <img
-                        src={getPublicUrl(s.afbeeldingUrl)}
-                        alt={s.titel}
-                        className="absolute inset-0 h-full w-full object-cover object-top"
-                      />
-                    </Link>
-                  ))}
+                <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-transparent">
+                  <div className="absolute inset-1.5">
+                    {uitgelicht.map((s, i) => (
+                      <Link
+                        key={s.id}
+                        to={`/schilderijen?open=${s.id}`}
+                        className={`absolute inset-0 flex min-h-0 min-w-0 items-center justify-center transition-opacity duration-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-palette-sage ${
+                          i === index ? "opacity-100 z-10" : "opacity-0 pointer-events-none"
+                        }`}
+                        aria-hidden={i !== index}
+                      >
+                        <img
+                          src={getPublicUrl(s.afbeeldingUrl)}
+                          alt={s.titel}
+                          className="max-h-full max-w-full h-auto w-auto rounded-md object-contain"
+                        />
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               </div>
               <div className="flex-1 min-w-0 flex flex-col justify-center">
