@@ -435,7 +435,7 @@ export const schilderijen: Schilderij[] = [
     id: "44",
     titel: "Kinderlaarsjes",
     beschrijving:
-      "Kinderlaarsjes in geel-oranje kleur",
+      "Kinderlaarsjes in geel-oranje kleur.",
     afmeting: "50 × 40 cm",
     materiaal: "Acryl op doek",
     thema: ["Van Alles Wat"],
