@@ -6,9 +6,9 @@ export const schilderijen: Schilderij[] = [
     titel: "Bonaire vissen",
     beschrijving:
       "Onderwaterkleur en licht; beweging onder het oppervlak.",
-    afmeting: "Onbekend",
+    afmeting: "50 × 70 cm",
     materiaal: "Acryl op doek",
-    thema: ["Dieren", "Water/Land/Lucht"],
+    thema: ["Water/Land/Lucht"],
     afbeeldingUrl: "/schilderijen/Bonaire Vissen.jpg",
   },
   {
@@ -113,7 +113,7 @@ export const schilderijen: Schilderij[] = [
   },
   {
     id: "12",
-    titel: "Vliegheide",
+    titel: "Wintergheide",
     beschrijving:
       "Open heide: struiken, lucht en diepte in koele en warme paarsgroene tinten.",
     afmeting: "50 × 50 cm",
@@ -285,7 +285,7 @@ export const schilderijen: Schilderij[] = [
     id: "29",
     titel: "Grachtje in Amsterdam",
     beschrijving:
-      "Grachtenpanden en kale boom boven het water; weerspiegelingen in beweging op het grachtoppervlak.",
+      "Grachtenpanden en kale boom boven het water; weerspiegelingen op het grachtoppervlak.",
     afmeting: "50 × 40 cm",
     materiaal: "Acryl op doek",
     thema: ["Huis"],
@@ -295,7 +295,7 @@ export const schilderijen: Schilderij[] = [
     id: "30",
     titel: "Keuken",
     beschrijving:
-      "Interieur van een keuken: raamlicht, tegels en voorwerpen op het aanrecht in warme, losse streken.",
+      "Interieur van een keuken: raamlicht, tegels en voorwerpen op het aanrecht.",
     afmeting: "40 × 50 cm",
     materiaal: "Acryl op doek",
     thema: ["Huis"],
@@ -325,7 +325,7 @@ export const schilderijen: Schilderij[] = [
     id: "33",
     titel: "The family",
     beschrijving:
-      "Abstracte, lichte figuren als een groep naast elkaar: zacht wit, grijs en blauw met schaduwen op de grond.",
+      "Abstracte, lichte figuren als een groep naast elkaar.",
     afmeting: "40 × 50 cm",
     materiaal: "Acryl op doek",
     thema: ["Van Alles Wat"],
@@ -355,7 +355,7 @@ export const schilderijen: Schilderij[] = [
     id: "36",
     titel: "Boot op Moldau",
     beschrijving:
-      "Rivier in Praag: passagiersboot, Karelsbrug en stad in avondlicht met oranje-rode lucht boven het water.",
+      "Rivier in Praag: passagiersboot, Karelsbrug en stad in avondlicht.",
     afmeting: "100 × 70 cm",
     materiaal: "Acryl op doek",
     thema: ["Van Alles Wat"],
@@ -375,7 +375,7 @@ export const schilderijen: Schilderij[] = [
     id: "38",
     titel: "Danseres",
     beschrijving:
-      "Een figuur in fel rood tegen een donkere achtergrond: beweging, brede rok en expressieve verfstreken.",
+      "Een figuur in fel rood tegen een donkere achtergrond.",
     afmeting: "65 × 85 cm",
     materiaal: "Acryl op doek",
     thema: ["Van Alles Wat"],
@@ -385,7 +385,7 @@ export const schilderijen: Schilderij[] = [
     id: "39",
     titel: "Voorbijgangers",
     beschrijving:
-      "Vogelperspectief op mensen en lange schaduwen op licht straatoppervlak: hoog contrast in zwart, wit en grijs.",
+      "Vogelperspectief op mensen en lange schaduwen op licht straatoppervlak.",
     afmeting: "60 × 70 cm",
     materiaal: "Acryl op doek",
     thema: ["Van Alles Wat"],
@@ -423,9 +423,9 @@ export const schilderijen: Schilderij[] = [
   },
   {
     id: "43",
-    titel: "Deurtje",
+    titel: "Deur van studentenhuis",
     beschrijving:
-      "Een houten deurtje en kozijn: warm roodbruin, licht en een beetje schaduw; intiem stads- of huisdetail.",
+      "Een houten deurtje en kozijnen van een studentenhuis in Leiden.",
     afmeting: "40 × 50 cm",
     materiaal: "Acryl op doek",
     thema: ["Huis"],
@@ -433,9 +433,9 @@ export const schilderijen: Schilderij[] = [
   },
   {
     id: "44",
-    titel: "Regenlaarzen",
+    titel: "Kinderlaarsjes",
     beschrijving:
-      "Een paar regenlaarzen naast elkaar: glimmend rubber, donkere groenblauwe tinten en eenvoudige vorm.",
+      "Kinderlaarsjes in geel-oranje kleur",
     afmeting: "50 × 40 cm",
     materiaal: "Acryl op doek",
     thema: ["Van Alles Wat"],
@@ -443,12 +443,22 @@ export const schilderijen: Schilderij[] = [
   },
   {
     id: "45",
-    titel: "Waterbloemen",
+    titel: "Onder het oppervlak",
     beschrijving:
       "Waterplanten en bloemen op het oppervlak: ronde bladeren, kleuraccenten en rust in het water.",
     afmeting: "60 × 80 cm",
     materiaal: "Acryl op doek",
     thema: ["Bloemen"],
     afbeeldingUrl: "/schilderijen/Waterbloemen.jpeg",
+  },
+  {
+    id: "46",
+    titel: "Vrouwen met manden",
+    beschrijving:
+      "Vrouwen met manden op hoofd in de woestijn.",
+    afmeting: "50 × 40 cm",
+    materiaal: "Acryl op doek",
+    thema: ["Van Alles Wat"],
+    afbeeldingUrl: "/schilderijen/Vrouwen met manden.png",
   },
 ];

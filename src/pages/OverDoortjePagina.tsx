@@ -13,8 +13,16 @@ export function OverDoortjePagina() {
       <div className="flex-1 min-w-0 space-y-4 text-left">
         <h1 className="font-title text-3xl font-semibold text-palette-slate">Over Doortje</h1>
         <p className="text-palette-slate/90 max-w-[65ch]">
-          Tekst over Doortje en haar werk komt hier. Dit is een placeholder die je later kunt invullen met informatie over de kunstenaar, haar achtergrond en wat haar inspireert.
-        </p>
+        Na mijn psychologiestudie in Amsterdam en werk in het gooi heb ik 20 jr lessen gevolgd aan de Gooische Academie bij Lex Goes en verschillende zomercursussen. Na de Corona jaren schilder ik in een klein groepje bij Ineke Onkenhout en wordt gestimuleerd om verschillende technieken te gebruiken, zoals schilderen met paletmes.
+De natuur is en blijft mijn bron van inspiratie. Dat verveelt nooit.
+Leuk dat je mijn schilderijen op de site komt bekijken.
+<br />
+<br />
+Doortje de Koning-Franken
+<br />
+06-51287124
+<br />
+doortjedekoning@gmail.com        </p>
       </div>
     </div>
   );
