@@ -461,4 +461,14 @@ export const schilderijen: Schilderij[] = [
     thema: ["Van Alles Wat"],
     afbeeldingUrl: "/schilderijen/Vrouwen met manden.png",
   },
+  {
+    id: "47",
+    titel: "Vaas met bloemen",
+    beschrijving:
+      "Gemaakt met een lap stof die met speciale verf hard wordt.",
+    afmeting: "60 × 40 cm",
+    materiaal: "Divers",
+    thema: ["Bloemen"],
+    afbeeldingUrl: "/schilderijen/Vaas met bloemen.jpeg",
+  },
 ];

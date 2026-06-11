@@ -4,7 +4,10 @@ import { schilderijen } from "../data/schilderijen";
 import { Tag } from "../components/Tag";
 import { getPublicUrl } from "../utils/publicUrl";
 
-const uitgelicht = schilderijen.slice(0, 3);
+const UITGELICHT_IDS = ["10", "5", "6"];
+const uitgelicht = UITGELICHT_IDS.map(
+  (id) => schilderijen.find((s) => s.id === id)!,
+);
 const WISSEL_SECONDEN = 4;
 
 export function Homepagina() {

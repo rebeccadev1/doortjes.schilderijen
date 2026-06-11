@@ -3,6 +3,7 @@ export const MATERIALEN = [
   "Acryl op doek",
   "Acryl op hout",
   "Houtskool op papier",
+  "Divers",
   "Onbekend",
 ] as const;
 
