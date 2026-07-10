@@ -113,7 +113,7 @@ export const schilderijen: Schilderij[] = [
   },
   {
     id: "12",
-    titel: "Wintergheide",
+    titel: "Winterheide",
     beschrijving:
       "Open heide: struiken, lucht en diepte in koele en warme paarsgroene tinten.",
     afmeting: "50 × 50 cm",
@@ -470,5 +470,38 @@ export const schilderijen: Schilderij[] = [
     materiaal: "Divers",
     thema: ["Bloemen"],
     afbeeldingUrl: "/schilderijen/Vaas met bloemen.jpeg",
+  },
+
+  {
+    id: "48",
+    titel: "Klaprozen",
+    beschrijving:
+      "Geschilderde bloemen op papier.",
+    afmeting: "40 × 30 cm",
+    materiaal: "Acryl op papier",
+    thema: ["Bloemen"],
+    afbeeldingUrl: "/schilderijen/Acryl op papier.jpg",
+  },
+
+  {
+    id: "49",
+    titel: "3 meisjes in blauw",
+    beschrijving:
+      "3 meisjes in Zuid-Marokko.",
+    afmeting: "24 × 16 cm",
+    materiaal: "Acryl op doek",
+    thema: ["Van Alles Wat"],
+    afbeeldingUrl: "/schilderijen/Meisjes in blauw.jpeg",
+  },
+
+  {
+    id: "50",
+    titel: "Bloemen in een pot",
+    beschrijving:
+      "Geschilderde blauwe en witte bloemen in een pot.",
+    afmeting: "50 × 35 cm",
+    materiaal: "Acryl op doek",
+    thema: ["Bloemen"],
+    afbeeldingUrl: "/schilderijen/Bloemen in pot.jpeg",
   },
 ];
