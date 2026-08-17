@@ -478,7 +478,7 @@ export const schilderijen: Schilderij[] = [
     beschrijving:
       "Geschilderde bloemen op papier.",
     afmeting: "40 × 30 cm",
-    materiaal: "Acryl op papier",
+    materiaal: "Aquarel",
     thema: ["Bloemen"],
     afbeeldingUrl: "/schilderijen/Acryl op papier.jpg",
   },
