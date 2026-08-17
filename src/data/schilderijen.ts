@@ -107,7 +107,7 @@ export const schilderijen: Schilderij[] = [
     beschrijving:
       "Klaprozen in Toscaans licht: fel rood en oranje tegen groen en zandkleur.",
     afmeting: "50 × 40 cm",
-    materiaal: "Aquarel",
+    materiaal: "Acryl op doek",
     thema: ["Landschappen"],
     afbeeldingUrl: "/schilderijen/Toscane klaprozen.jpg",
   },
