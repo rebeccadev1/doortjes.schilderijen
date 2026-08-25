@@ -504,4 +504,26 @@ export const schilderijen: Schilderij[] = [
     thema: ["Bloemen"],
     afbeeldingUrl: "/schilderijen/Bloemen in pot.jpeg",
   },
+
+  {
+    id: "51",
+    titel: "Boot op zee",
+    beschrijving:
+      "Boot op zee.",
+    afmeting: "60 × 50 cm",
+    materiaal: "Acryl op doek",
+    thema: ["Van Alles Wat"],
+    afbeeldingUrl: "/schilderijen/Boot op zee.jpg",
+  },
+
+  {
+    id: "52",
+    titel: "Boot voor anker",
+    beschrijving:
+      "Boot voor anker met afdalende man.",
+    afmeting: "60 × 50 cm",
+    materiaal: "Acryl op doek",
+    thema: ["Van Alles Wat"],
+    afbeeldingUrl: "/schilderijen/Boot voor anker.jpg",
+  },
 ];
